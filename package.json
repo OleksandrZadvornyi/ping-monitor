@@ -1,5 +1,5 @@
 {
-  "name": "ping-graph",
+  "name": "ping-monitor",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OleksandrZadvornyi/ping-graph.git"
+    "url": "git+https://github.com/OleksandrZadvornyi/ping-monitor.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/OleksandrZadvornyi/ping-graph/issues"
+    "url": "https://github.com/OleksandrZadvornyi/ping-monitor/issues"
   },
-  "homepage": "https://github.com/OleksandrZadvornyi/ping-graph#readme",
+  "homepage": "https://github.com/OleksandrZadvornyi/ping-monitor#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.1.0",
