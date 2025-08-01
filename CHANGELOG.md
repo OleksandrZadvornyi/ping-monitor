@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.2...v0.1.3) (2025-08-01)
+
+
+### 🛠 Maintenance
+
+* initialize frontend project ([21c4cbb](https://github.com/OleksandrZadvornyi/ping-monitor/commit/21c4cbb9b5e823a9eef8972d361705ae699f6594))
+
+
+### 🐛 Bug Fixes
+
+* add icons and fix page title ([05f7af1](https://github.com/OleksandrZadvornyi/ping-monitor/commit/05f7af1ab742d0adbd78ed9f451c54a71498ed82))
+* remove logging ping data in console ([51c154f](https://github.com/OleksandrZadvornyi/ping-monitor/commit/51c154f7fec730fd20b1fd81263aa39b7a1c9e12))
+
+
+### ✨ Features
+
+* add panel with useful latency statistics ([c9cbb51](https://github.com/OleksandrZadvornyi/ping-monitor/commit/c9cbb518b81cd091ddf9f94a5c75e7c1e1dad18a))
+* display app logo with the header ([a9705dd](https://github.com/OleksandrZadvornyi/ping-monitor/commit/a9705ddafe25f767c5514926c4d091a9efe12508))
+* display live latency using Chart.js ([5cda919](https://github.com/OleksandrZadvornyi/ping-monitor/commit/5cda9193c2bf3ad89d7a161bdd41c5939292d30c))
+
 ### [0.1.2](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.1...v0.1.2) (2025-08-01)
 
 
