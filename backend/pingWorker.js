@@ -1,16 +1,14 @@
 import ping from "ping";
 
-const target = "8.8.8.8"; // target server IP
+let target = "8.8.8.8";
 const interval = 1000; // ms
 const maxHistory = 10000;
+let stats = [];
+let intervalId = null;
 
-let stats = []; // in-memory history
-
-export function startPing() {
-  setInterval(async () => {
-    const res = await ping.promise.probe(target, {
-      timeout: 1,
-    });
+function pingLoop() {
+  intervalId = setInterval(async () => {
+    const res = await ping.promise.probe(target, { timeout: 1 });
 
     stats.push({
       time: Date.now(),
@@ -19,9 +17,27 @@ export function startPing() {
     });
 
     if (stats.length > maxHistory) {
-      stats.shift(); // keep size under control
+      stats.shift();
     }
   }, interval);
+}
+
+export function startPing() {
+  if (!intervalId) pingLoop();
+}
+
+export function setTarget(newTarget) {
+  target = newTarget;
+  stats = []; // clear history
+  if (intervalId) {
+    clearInterval(intervalId);
+    intervalId = null;
+    pingLoop();
+  }
+}
+
+export function getTarget() {
+  return target;
 }
 
 export function getStats() {

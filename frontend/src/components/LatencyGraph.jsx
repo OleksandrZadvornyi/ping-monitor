@@ -35,18 +35,27 @@ export default function LatencyGraph() {
   const [dataPoints, setDataPoints] = useState([]);
   const [stats, setStats] = useState(null);
   const [viewRange, setViewRange] = useState(300); // default to 5 min
+  const [target, setTarget] = useState("");
+  const [inputTarget, setInputTarget] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:3001/data");
-        const json = await res.json();
-        setDataPoints(json.data);
+        const [dataRes, targetRes] = await Promise.all([
+          fetch("http://localhost:3001/data"),
+          fetch("http://localhost:3001/target"),
+        ]);
+        const dataJson = await dataRes.json();
+        const targetJson = await targetRes.json();
+
+        setDataPoints(dataJson.data);
+        setTarget(targetJson.target);
+
         setStats({
-          total: json.total,
-          lost: json.lost,
-          lossRate: json.lossRate.toFixed(2),
-          target: json.target,
+          total: dataJson.total,
+          lost: dataJson.lost,
+          lossRate: dataJson.lossRate.toFixed(2),
+          target: targetJson.target,
         });
       } catch (err) {
         console.error(err);
@@ -61,6 +70,13 @@ export default function LatencyGraph() {
   const now = Date.now();
   const filteredData = dataPoints.filter((dp) =>
     viewRange === Infinity ? true : now - dp.time <= viewRange * 1000
+  );
+
+  const labels = filteredData.map((dp) =>
+    new Date(dp.time).toLocaleTimeString()
+  );
+  const latencyData = filteredData.map((dp) =>
+    dp.latency !== null ? dp.latency : null
   );
 
   const validLatencies = filteredData
@@ -79,13 +95,11 @@ export default function LatencyGraph() {
   };
 
   const chartData = {
-    labels: filteredData.map((dp) => new Date(dp.time).toLocaleTimeString()),
+    labels,
     datasets: [
       {
         label: "Latency (ms)",
-        data: filteredData.map((dp) =>
-          dp.latency !== null ? dp.latency : null
-        ),
+        data: latencyData,
         fill: false,
         borderColor: "rgba(75, 192, 192, 1)",
         tension: 0.1,
@@ -109,6 +123,24 @@ export default function LatencyGraph() {
     },
   };
 
+  const handleTargetChange = async () => {
+    if (!inputTarget.trim()) return;
+    try {
+      const res = await fetch("http://localhost:3001/target", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ target: inputTarget.trim() }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setTarget(json.target);
+        setInputTarget("");
+      }
+    } catch (err) {
+      console.error("Failed to update target:", err);
+    }
+  };
+
   return (
     <div
       style={{
@@ -118,6 +150,32 @@ export default function LatencyGraph() {
         overflow: "hidden",
       }}
     >
+      <p>
+        Target: <strong>{target}</strong>
+      </p>
+      <div style={{ marginBottom: "1rem" }}>
+        <input
+          type="text"
+          placeholder="Enter IP or domain"
+          value={inputTarget}
+          onChange={(e) => setInputTarget(e.target.value)}
+          style={{ padding: "0.5rem", width: "200px" }}
+        />
+        <button
+          onClick={handleTargetChange}
+          style={{
+            marginLeft: "0.5rem",
+            padding: "0.5rem 1rem",
+            background: "#0077cc",
+            color: "#fff",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Change Target
+        </button>
+      </div>
       <StatsPanel stats={stats} latencyStats={latencyStats} />
       <label style={{ marginBottom: "1rem", display: "block" }}>
         View Range:&nbsp;
