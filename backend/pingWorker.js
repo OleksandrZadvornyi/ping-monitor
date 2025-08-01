@@ -21,12 +21,6 @@ export function startPing() {
     if (stats.length > maxHistory) {
       stats.shift(); // keep size under control
     }
-
-    console.log(
-      `Target: ${target}, ping: ${res.alive ? "alive" : "dead"}, latency: ${
-        res.time
-      } ms`
-    );
   }, interval);
 }
 
