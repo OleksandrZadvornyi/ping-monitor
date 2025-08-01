@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.1...v0.1.2) (2025-08-01)
+
+
+### 🛠 Maintenance
+
+* use ES6 modules instead of CommonJS ([622dd50](https://github.com/OleksandrZadvornyi/ping-monitor/commit/622dd504bf7e1da78c5867557615649308771a61))
+
+
+### ✨ Features
+
+* add basic ping alerts functionality ([1141f67](https://github.com/OleksandrZadvornyi/ping-monitor/commit/1141f678214a6f5c6aae6b082d84a2c72dddbd21))
+
 ### 0.1.1 (2025-07-31)
 
 
