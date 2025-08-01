@@ -9,9 +9,16 @@ function App() {
       flexDirection: 'column',
       padding: '1rem',
       boxSizing: 'border-box',
-      overflow: 'hidden', // prevent vertical scrollbar
+      overflow: 'hidden',
     }}>
-      <h1 style={{ margin: 0 }}>Ping Monitor</h1>
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
+        <img
+          src="./icon-default.png"
+          alt="Logo"
+          style={{ width: 48, height: 48, marginRight: '1rem', borderRadius: '20%' }}
+        />
+        <h1 style={{ margin: 0 }}>Ping Monitor</h1>
+      </div>
       <LatencyGraph />
     </div>
   );
