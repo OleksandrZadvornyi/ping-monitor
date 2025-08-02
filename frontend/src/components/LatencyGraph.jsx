@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import annotationPlugin from "chartjs-plugin-annotation";
 
 ChartJS.register(
   LineElement,
@@ -18,7 +19,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   Tooltip,
-  Legend
+  Legend,
+  annotationPlugin
 );
 
 const RANGE_OPTIONS = [
@@ -79,6 +81,58 @@ export default function LatencyGraph() {
     dp.latency !== null ? dp.latency : null
   );
 
+  // Find consecutive groups of lost packets and create rectangle annotations
+  const lostPacketAnnotations = (() => {
+    const lostIndices = [];
+    for (let i = 0; i < filteredData.length; i++) {
+      if (filteredData[i].latency === null) {
+        lostIndices.push(i);
+      }
+    }
+    if (lostIndices.length === 0) return {};
+
+    // Group consecutive lost packets
+    const groups = [];
+    let currentGroup = [lostIndices[0]];
+
+    for (let i = 1; i < lostIndices.length; i++) {
+      if (lostIndices[i] === lostIndices[i - 1] + 1) {
+        // Consecutive lost packet
+        currentGroup.push(lostIndices[i]);
+      } else {
+        // Gap found, start new group
+        groups.push(currentGroup);
+        currentGroup = [lostIndices[i]];
+      }
+    }
+    groups.push(currentGroup); // Add the last group
+
+    // Create annotations for each group
+    const annotations = {};
+    groups.forEach((group, groupIndex) => {
+      const startIndex = group[0];
+      const endIndex = group[group.length - 1];
+
+      // Create rectangles to fill the entire gap
+      // From the end of the last successful packet to the start of the next successful packet
+      annotations[`lostPacketGroup${groupIndex}`] = {
+        type: "box",
+        xMin: startIndex - 1,
+        xMax: endIndex + 1,
+        yMin: 0,
+        yMax: "max",
+        backgroundColor: "rgba(255, 99, 99, 0.5)",
+        borderWidth: 0,
+        label: {
+          content: "Packet Lost",
+          enabled: false,
+        },
+      };
+    });
+    console.log("Lost Packet Annotations:", annotations);
+    return annotations;
+  })();
+
   const validLatencies = filteredData
     .map((dp) => dp.latency)
     .filter((latency) => latency !== null);
@@ -103,13 +157,14 @@ export default function LatencyGraph() {
         fill: false,
         borderColor: "rgba(75, 192, 192, 1)",
         tension: 0.1,
+        spanGaps: false, // Don't connect points across gaps
       },
     ],
   };
 
   const chartOptions = {
     responsive: true,
-    maintainAspectRatio: false, // allow stretching
+    maintainAspectRatio: false,
     scales: {
       y: {
         title: { display: true, text: "Latency (ms)" },
@@ -120,6 +175,9 @@ export default function LatencyGraph() {
     animation: false,
     plugins: {
       legend: { display: true },
+      annotation: {
+        annotations: lostPacketAnnotations,
+      },
     },
   };
 
