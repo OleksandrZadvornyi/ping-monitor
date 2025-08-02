@@ -133,6 +133,43 @@ export default function LatencyGraph() {
     return annotations;
   })();
 
+  // Ping quality background zones
+  const pingQualityAnnotations = {
+    // Good ping zone (0-100ms) - Green
+    goodPingZone: {
+      type: "box",
+      yMin: 0,
+      yMax: 100,
+      backgroundColor: "rgba(76, 175, 80, 0.1)",
+      borderWidth: 0,
+      z: -1,
+    },
+    // Fair ping zone (100-200ms) - Yellow
+    fairPingZone: {
+      type: "box",
+      yMin: 100,
+      yMax: 200,
+      backgroundColor: "rgba(255, 193, 7, 0.1)",
+      borderWidth: 0,
+      z: -1,
+    },
+    // Poor ping zone (200ms+) - Red
+    poorPingZone: {
+      type: "box",
+      yMin: 200,
+      yMax: "max",
+      backgroundColor: "rgba(244, 67, 54, 0.1)",
+      borderWidth: 0,
+      z: -1,
+    },
+  };
+
+  // Combine all annotations
+  const allAnnotations = {
+    ...pingQualityAnnotations,
+    ...lostPacketAnnotations,
+  };
+
   const validLatencies = filteredData
     .map((dp) => dp.latency)
     .filter((latency) => latency !== null);
@@ -178,14 +215,25 @@ export default function LatencyGraph() {
       y: {
         title: { display: true, text: "Latency (ms)" },
         suggestedMin: 0,
-        suggestedMax: 200,
+        suggestedMax: 50,
       },
     },
     animation: false,
     plugins: {
       legend: { display: true },
       annotation: {
-        annotations: lostPacketAnnotations,
+        annotations: allAnnotations,
+      },
+      tooltip: {
+        callbacks: {
+          afterLabel: function (context) {
+            const ping = context.parsed.y;
+            if (ping === null) return null;
+            if (ping <= 100) return "Quality: Good";
+            else if (ping <= 200) return "Quality: Fair";
+            else return "Quality: Poor";
+          },
+        },
       },
     },
   };
