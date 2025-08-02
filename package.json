@@ -1,7 +1,7 @@
 {
   "name": "ping-monitor",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "scripts": {
     "start": "concurrently \"npm run dev --prefix frontend\" \"node backend/server.js\"",

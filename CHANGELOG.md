@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.4...v0.1.5) (2025-08-02)
+
+
+### 📦 Build
+
+* start everything with one command ([475c293](https://github.com/OleksandrZadvornyi/ping-monitor/commit/475c293be87ca72ea14364ef28d3a58ba725e714))
+
+
+### 📝 Documentation
+
+* update steps to get started ([e5bddf7](https://github.com/OleksandrZadvornyi/ping-monitor/commit/e5bddf7130d88e2fc670a822ec2e183da13c78ed))
+
 ### [0.1.4](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.3...v0.1.4) (2025-08-01)
 
 
