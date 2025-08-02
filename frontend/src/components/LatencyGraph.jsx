@@ -217,9 +217,6 @@ export default function LatencyGraph() {
         overflow: "hidden",
       }}
     >
-      <p>
-        Target: <strong>{target}</strong>
-      </p>
       <div style={{ marginBottom: "1rem" }}>
         <input
           type="text"
