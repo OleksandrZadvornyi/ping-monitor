@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.6](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.5...v0.1.6) (2025-08-02)
+
+
+### ✨ Features
+
+* plot red spikes for packet loss ([51c823f](https://github.com/OleksandrZadvornyi/ping-monitor/commit/51c823f605f45081224f42507e07b53b732c4719))
+
+
+### 🐛 Bug Fixes
+
+* make points smaller for better visibility ([07aebb3](https://github.com/OleksandrZadvornyi/ping-monitor/commit/07aebb3723aeb33f2ca6ced31c71772e8cdc66c6))
+
+
+### 👷 CI/CD
+
+* change release name to Ping Monitor ([c49d6b6](https://github.com/OleksandrZadvornyi/ping-monitor/commit/c49d6b6f4923e31a842c4b83af0c6015a853d7e1))
+
 ### [0.1.5](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.4...v0.1.5) (2025-08-02)
 
 
