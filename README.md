@@ -7,7 +7,7 @@
 ![Made with React](https://img.shields.io/badge/made%20with-React-blue)
 ![Platform](https://img.shields.io/badge/platform-localhost-lightgrey)
 
-📡 A simple, lightweight, real-time web app to monitor internet connection stability. Built with Node.js, Express, React and Chart.js — runs locally on `localhost`.
+📡 A simple, lightweight, real-time web app to monitor internet connection stability. Built with Node.js, Express, React and Chart.js. Runs locally on `localhost`.
 
 ![Ping Monitor Screenshot](screenshot.png)
 _Track your ping in real time with a clean, interactive latency graph._
@@ -25,7 +25,8 @@ _Track your ping in real time with a clean, interactive latency graph._
 
 - **Backend**: Node.js + Express + `ping`
 - **Frontend**: React + Chart.js (`react-chartjs-2`)
-- **No database** — data is stored in memory per session
+- **Runner**: `concurrently` to launch both servers
+- **No database**: data is stored in memory per session
 
 ## 🚀 Getting Started
 
@@ -36,28 +37,22 @@ git clone https://github.com/OleksandrZadvornyi/ping-monitor.git
 cd ping-monitor
 ```
 
-### 2. Install backend dependencies
+### 2. Install all dependencies
 
 ```bash
-cd backend
 npm install
 ```
 
-### 3. Start backend server
+### 3. Start the app (backend + frontend)
 
 ```bash
-node server.js
-# Runs on http://localhost:3001
+npm start
 ```
 
-### 4. Set up the frontend
+- Backend runs on http://localhost:3001
+- Frontend opens at http://localhost:5173
 
-```bash
-cd ../frontend
-npm install
-npm run dev
-# Open http://localhost:5173
-```
+To stop the app, press `Ctrl + C` in the terminal.
 
 ## 🔍 Usage
 
@@ -76,8 +71,12 @@ ping-monitor/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── StatsPanel.jsx
 │   │   │   └── LatencyGraph.jsx
-│   │   └── App.jsx
+│   │   ├── App.jsx
+│   │   └── main.jsx
+├── package.json           # Runs both frontend/backend with concurrently
+└── README.md
 ```
 
 ## 📝 Future Improvements
@@ -93,8 +92,8 @@ ping-monitor/
 
 This app is intentionally local-only for two main reasons:
 
-- Privacy & security — Your connection info stays on your machine
-- Low latency — It's meant for real-time monitoring during gaming
+- Privacy & security – your connection info stays on your machine
+- Low latency – it's meant for real-time monitoring
 
 If hosted remotely, it wouldn’t accurately measure your own ping, but rather the ping between the server and the target.
 
