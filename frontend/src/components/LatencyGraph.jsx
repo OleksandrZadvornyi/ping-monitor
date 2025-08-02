@@ -158,6 +158,7 @@ export default function LatencyGraph() {
         borderColor: "rgba(75, 192, 192, 1)",
         tension: 0.1,
         spanGaps: false, // Don't connect points across gaps
+        pointRadius: 1,
       },
     ],
   };
