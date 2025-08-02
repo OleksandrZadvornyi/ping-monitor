@@ -167,6 +167,11 @@ export default function LatencyGraph() {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
+      x: {
+        grid: {
+          display: false, // Hide vertical grid lines
+        },
+      },
       y: {
         title: { display: true, text: "Latency (ms)" },
         suggestedMin: 0,
