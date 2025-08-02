@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.6...v0.1.7) (2025-08-02)
+
+
+### 🐛 Bug Fixes
+
+* remove unnecessary paragraph with target name ([eda76ca](https://github.com/OleksandrZadvornyi/ping-monitor/commit/eda76ca81158ae2d5d478681b809425be94774de))
+
+
+### ✨ Features
+
+* add ping quality background zones to graph ([52c40e6](https://github.com/OleksandrZadvornyi/ping-monitor/commit/52c40e6efa2da3111030e0791ba328fe9ec0846d))
+* change locale to 24-hour time without AM/PM ([a4d5940](https://github.com/OleksandrZadvornyi/ping-monitor/commit/a4d59406543c314676529d444ec4e7763dfe8b9f))
+* limit the labels number on the X axis to 10 ([1e61c45](https://github.com/OleksandrZadvornyi/ping-monitor/commit/1e61c4520d3a3ddbc1deadaab352261f797dc54d))
+* remove vertical grid lines on the graph ([ff7aca5](https://github.com/OleksandrZadvornyi/ping-monitor/commit/ff7aca53480af5bd6c99ad9be169f412e76b1944))
+
 ### [0.1.6](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.5...v0.1.6) (2025-08-02)
 
 
