@@ -171,6 +171,9 @@ export default function LatencyGraph() {
         grid: {
           display: false, // Hide vertical grid lines
         },
+        ticks: {
+          maxTicksLimit: 10, // Show maximum 10 labels
+        },
       },
       y: {
         title: { display: true, text: "Latency (ms)" },
