@@ -75,7 +75,7 @@ export default function LatencyGraph() {
   );
 
   const labels = filteredData.map((dp) =>
-    new Date(dp.time).toLocaleTimeString()
+    new Date(dp.time).toLocaleTimeString("en-GB")
   );
   const latencyData = filteredData.map((dp) =>
     dp.latency !== null ? dp.latency : null
