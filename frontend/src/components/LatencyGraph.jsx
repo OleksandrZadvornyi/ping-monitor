@@ -129,7 +129,6 @@ export default function LatencyGraph() {
         },
       };
     });
-    console.log("Lost Packet Annotations:", annotations);
     return annotations;
   })();
 
