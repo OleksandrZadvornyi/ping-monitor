@@ -1,6 +1,7 @@
 import { Line } from "react-chartjs-2";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StatsPanel from "./StatsPanel";
+import { useLatencyData } from "../hooks/useLatencyData";
 
 import {
   Chart as ChartJS,
@@ -34,40 +35,51 @@ const RANGE_OPTIONS = [
 ];
 
 export default function LatencyGraph() {
-  const [dataPoints, setDataPoints] = useState([]);
-  const [stats, setStats] = useState(null);
+  const { dataPoints, stats, loading, error, changeTarget } = useLatencyData();
+
+  // Local UI state (not related to data fetching)
   const [viewRange, setViewRange] = useState(300); // default to 5 min
-  const [target, setTarget] = useState("");
   const [inputTarget, setInputTarget] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [dataRes, targetRes] = await Promise.all([
-          fetch("http://localhost:3001/data"),
-          fetch("http://localhost:3001/target"),
-        ]);
-        const dataJson = await dataRes.json();
-        const targetJson = await targetRes.json();
+  // Handle target change with the hook's function
+  const handleTargetChange = async () => {
+    const success = await changeTarget(inputTarget);
+    if (success) {
+      setInputTarget(""); // Clear input on success
+    }
+  };
 
-        setDataPoints(dataJson.data);
-        setTarget(targetJson.target);
+  // Show loading state
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <div>Loading latency data...</div>
+      </div>
+    );
+  }
 
-        setStats({
-          total: dataJson.total,
-          lost: dataJson.lost,
-          lossRate: dataJson.lossRate.toFixed(2),
-          target: targetJson.target,
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchData();
-    const interval = setInterval(fetchData, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // Show error state
+  if (error) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <div style={{ color: "red" }}>Error: {error}</div>
+      </div>
+    );
+  }
 
   const now = Date.now();
   const filteredData = dataPoints.filter((dp) =>
@@ -235,24 +247,6 @@ export default function LatencyGraph() {
         },
       },
     },
-  };
-
-  const handleTargetChange = async () => {
-    if (!inputTarget.trim()) return;
-    try {
-      const res = await fetch("http://localhost:3001/target", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ target: inputTarget.trim() }),
-      });
-      const json = await res.json();
-      if (json.success) {
-        setTarget(json.target);
-        setInputTarget("");
-      }
-    } catch (err) {
-      console.error("Failed to update target:", err);
-    }
   };
 
   return (
