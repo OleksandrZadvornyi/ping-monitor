@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.7...v0.1.8) (2025-10-17)
+
+
+### 🐛 Bug Fixes
+
+* remove lost packet annotations logging ([e9108fd](https://github.com/OleksandrZadvornyi/ping-monitor/commit/e9108fd34d9d253a8e8fedeb90334a2a2d3bf8fb))
+
+
+### ♻️ Code Refactoring
+
+* create custom hook for data fetching ([c965c68](https://github.com/OleksandrZadvornyi/ping-monitor/commit/c965c68a527e476d80a7f4b3fcafe392893915b9))
+
+
+### 📝 Documentation
+
+* update a screenshot of the app in README ([cbb3a38](https://github.com/OleksandrZadvornyi/ping-monitor/commit/cbb3a38f39a1f0e9ce6a3494497f7a35658a616d))
+
 ### [0.1.7](https://github.com/OleksandrZadvornyi/ping-monitor/compare/v0.1.6...v0.1.7) (2025-08-02)
 
 
